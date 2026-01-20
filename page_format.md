@@ -34,4 +34,49 @@
     LRU         :   
         -clock bit
         -pointers(prev, next)
+```
+#include <stdint.h>
+#include <stdbool.h>
+#include <pthread.h>
 
+// --- Disk page header (matches your disk format) ---
+typedef struct DiskHeader {
+    uint32_t magic;     // 4 bytes
+    uint32_t size;      // page size in bytes
+    uint8_t  version;   // format version
+    uint8_t  type;      // page type (META, INDEX, HEAP, etc.)
+    uint16_t flags;     // optional on-disk flags
+    uint64_t id;        // unique page id
+    uint64_t LSN;       // log sequence number
+    uint64_t checksum;  // page checksum
+} DiskHeader;
+
+// --- Memory page (buffer pool page) ---
+typedef struct MemPage {
+    // Identity & pointer
+    uint64_t id;        // same as disk page id
+    uint8_t* payload;   // pointer to in-memory page data (page size bytes)
+
+    // Concurrency
+    uint16_t pin_count;     // number of threads using this page
+    pthread_mutex_t latch;  // protects page metadata and payload
+
+    // Page state flags (1 bit each)
+    struct {
+        uint8_t is_dirty            : 1;  // memory != disk
+        uint8_t page_io_in_progress : 1;  // reading/writing to disk
+        uint8_t page_read_pending   : 1;  // not fully loaded
+        uint8_t clock_bit           : 1;  // LRU/Clock eviction
+        uint8_t reserved            : 4;  // future flags
+    } flags;
+
+    // LRU / eviction info
+    struct MemPage* lru_prev;   // previous page in LRU list
+    struct MemPage* lru_next;   // next page in LRU list
+
+    // Optional runtime helpers (can be NULL)
+    void* slot_cache;           // fast record lookup
+} MemPage;
+
+
+```
