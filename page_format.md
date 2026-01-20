@@ -35,13 +35,16 @@
 
 ### LOB:(BLOB)
 
-#   PAGE MEMORY FORMAT
-
-
-
-
-
-
-
+# PAGE MEMORY FORMAT
+## HEADER
+    id          :
+    base_header :
+    payload     :
+    pin_count   :
+    is_dirty    :
+    is_loading  :
+    latch       :
+    LRU         :
+    flags       :
 
 
