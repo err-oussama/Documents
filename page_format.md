@@ -1,6 +1,5 @@
 # PAGE DISK FORMAT
 
-
 ## BASE HEADER
     magic       :   4 byte
     size        :   4 byte
@@ -34,6 +33,9 @@
     LRU         :   
         -clock bit
         -pointers(prev, next)
+
+#   C STRUCT
+
 ```
 #include <stdint.h>
 #include <stdbool.h>
@@ -78,5 +80,5 @@ typedef struct MemPage {
     void* slot_cache;           // fast record lookup
 } MemPage;
 
-
 ```
+
