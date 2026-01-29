@@ -27,8 +27,10 @@ on Unix-like systems***
 
 ### Key points
     - Contains *program instructions*(.text) and *static data* (.rodata, .data, .bss)
-    - Stores *symbol tables, relocation info, and section headers*
-
+    - Stores *symbol tables, relocation info, and section headers* for linking
+    - Include *optional debug info*(.debug_*, DWARF, CFI) for tools
+    - Designed so *loader ca map sections into memory* with proper permissions
+    - Supports both *static and dynamic linking* (shared libraries)
 
 ### content
     - Executable code (.text)
