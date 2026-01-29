@@ -101,6 +101,53 @@ on Unix-like systems***
     - Do not affect execution
     - Used only by tools (Debuggers, unwinders, linkers, profilers)
     - Define the memory range of function
+    - They mean *exactly* what thire names say:
+        LFB -> Label Function Begin:
+            holds the *address where the function begins*
+        LFE -> Label Function End:
+            holds the *address where the function ends*
+    - They are just *precise boundary markers* so tool can say:
+        **from this address to that address this is one function**
+    
+## CFI
+
+***A set of rules that describe how to recover a caller's stack frame at any instruction address***
+Not code
+Not labels
+*Rule*
+
+
+### Content
+CFI holds *state-transition rules* saying:
+    - where the *Call Frame Address (CFA) is*
+    - where *saved registers* are located *relative to CFA*
+    - how those rules *changes as instruction execute*
+
+***CFI is a precise, instruction-byinstruction map that tells tools how to unwind the stack correctly***
+
+
+
+
+## CFA
+***A single, abstract address per instruction***
+
+CFA defined as:
+    CFA = register + offset
+
+What CFA represents
+    - A *stable anchor* used to describe where things are
+    
+
+
+
+
+
+
+
+
+
+
+
 
 
 
