@@ -131,11 +131,12 @@ CFI holds *state-transition rules* saying:
 ## CFA
 ***A single, abstract address per instruction***
 
-CFA defined as:
-    CFA = register + offset
+    CFA defined as:
 
-What CFA represents
-    - A *stable anchor* used to describe where things are
+        CFA = register + offset
+
+    What CFA represents:
+        - A *stable anchor* used to describe where things are
     
 
 
